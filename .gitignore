@@ -4,3 +4,5 @@ pretrained
 pretrained_*
 *.ipynb
 *.hdf5
+resources/*
+.idea/*

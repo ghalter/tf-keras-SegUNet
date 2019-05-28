@@ -150,6 +150,5 @@ def segunet(
     outputs = Activation(output_mode)(conv_29)
     print("Build decoder done..")
 
-    segunet = Model(inputs=inputs, outputs=outputs, name="SegUNet")
 
-    return segunet
+    return Model(inputs=inputs, outputs=outputs, name="SegUNet")
