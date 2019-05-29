@@ -98,6 +98,8 @@ def main(args):
     with open(val_list_file, "r") as f:
         for l in f: val_list.append(l.replace("\n", ""))
 
+    print(train_list)
+    print(val_list)
 
     with tf.Graph().as_default():
         config = tf.ConfigProto()
@@ -132,7 +134,7 @@ def main(args):
                 [args.input_shape[0], args.input_shape[1]],
                 args.n_labels)
         val_gen = data_gen_small('resources/val',
-                'resources/val',
+                'resources/val/',
                 val_list,
                 args.batch_size,
                 [args.input_shape[0], args.input_shape[1]],
