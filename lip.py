@@ -4,7 +4,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 import keras.backend.tensorflow_backend as KTF
 import tensorflow as tf
-from keras.callbacks import EarlyStopping, TensorBoard, ModelCheckpoint
+from keras.callbacks import EarlyStopping, TensorBoard, ModelCheckpoint, CSVLogger
 
 from model import segunet
 from generator import data_gen_small
@@ -109,7 +109,7 @@ def main(args):
 
         # set callbacks
         cp_cb = ModelCheckpoint(
-                filepath='resources/checkpoints',
+                filepath='resources/checkpoints/',
                 monitor='val_loss',
                 verbose=1,
                 save_best_only=True,
@@ -123,6 +123,7 @@ def main(args):
         tb_cb = TensorBoard(
                 log_dir='resources/logs/',
                 write_images=True)
+        csv_logger = CSVLogger('resources/logs/training.log')
 
         # set generater
         train_gen = data_gen_small('resources/train/',
@@ -153,7 +154,7 @@ def main(args):
                 epochs=args.n_epochs,
                 validation_data=val_gen,
                 validation_steps=args.val_steps,
-                callbacks=[cp_cb, es_cb, tb_cb])
+                callbacks=[cp_cb, es_cb, tb_cb, csv_logger])
 
         model.save_weights("resources/weights/weights_01.hdf5")
 
