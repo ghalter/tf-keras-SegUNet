@@ -101,8 +101,8 @@ def main(args):
 
     with tf.Graph().as_default():
         config = tf.ConfigProto()
-        # config.gpu_options.allow_growth = True
-        # config.gpu_options.per_process_gpu_memory_fraction = 0.66
+        config.gpu_options.allow_growth = True
+        config.gpu_options.per_process_gpu_memory_fraction = 1.0
         session = tf.Session(config=config)
         KTF.set_session(session)
         KTF.set_learning_phase(1)
