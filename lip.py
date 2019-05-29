@@ -109,7 +109,7 @@ def main(args):
 
         # set callbacks
         cp_cb = ModelCheckpoint(
-                filepath='resources/checkpoints/',
+                filepath='resources/checkpoints/checkpoint',
                 monitor='val_loss',
                 verbose=1,
                 save_best_only=True,
