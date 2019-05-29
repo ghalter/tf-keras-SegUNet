@@ -1,5 +1,6 @@
 import os
 import argparse
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
 import keras.backend.tensorflow_backend as KTF
 import tensorflow as tf
@@ -21,7 +22,7 @@ def argparser():
     # parser.add_argument("--val_list",
     #         help="val list path")
     # parser.add_argument("--valimg_dir",
-    #         help="val image dir path")
+    #         help="val image dir path")impo
     # parser.add_argument("--valmsk_dir",
     #         help="val mask dir path")
     parser.add_argument("--batch_size",
@@ -70,7 +71,7 @@ def argparser():
             default=True,
             help="dataset class weights")
     parser.add_argument("--gpu_num",
-            default="1",
+            default="0",
             type=str,
             help="num of gpu")
     args = parser.parse_args()
@@ -82,6 +83,7 @@ def main(args):
     if args.gpu_num:
         os.environ["CUDA_VISIBLE_DEVICES"] = args.gpu_num
 
+    print(os.environ["CUDA_VISIBLE_DEVICES"])
     # set the necessary directories
     train_dir = 'resources/train'
     test_dir = 'resources/test'
@@ -98,7 +100,10 @@ def main(args):
 
 
     with tf.Graph().as_default():
-        session = tf.Session('')
+        config = tf.ConfigProto()
+        # config.gpu_options.allow_growth = True
+        # config.gpu_options.per_process_gpu_memory_fraction = 0.66
+        session = tf.Session(config=config)
         KTF.set_session(session)
         KTF.set_learning_phase(1)
 
