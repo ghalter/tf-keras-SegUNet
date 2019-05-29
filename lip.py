@@ -155,6 +155,8 @@ def main(args):
                 validation_steps=args.val_steps,
                 callbacks=[cp_cb, es_cb, tb_cb])
 
+        model.save_weights("resources/weights/weights_01.hdf5")
+
 
 if __name__ == "__main__":
     args =argparser()
